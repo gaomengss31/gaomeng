@@ -6,6 +6,7 @@
         <th>分类ID</th>
         <th>排序</th>
         <th>文章状态</th>
+
         <th>创建时间</th>
         <th>操作</th>
     </tr>
@@ -14,9 +15,10 @@
             <td><?=$model->id?></td>
             <td><?=$model->name?></td>
             <td><?=$model->intro?></td>
-            <td><?=$model->article_id?></td>
+            <td><?=$model->articlecategory->name?></td>
             <td><?=$model->sort?></td>
             <td><?=\backend\models\Article::$status_options[$model->status]?></td>
+
             <td><?=date("Y-m-d h:i:s",$model->create_time)?></td>
             <td>
                 <?=\yii\bootstrap\Html::a('修改',['article/edit','id'=>$model->id],['class'=>'btn btn-sm btn-success'])?>||

@@ -63,4 +63,13 @@ class ArticleController extends \yii\web\Controller
         $model->save();
         return $this->redirect('index');
     }
+    public function actions()
+    {
+        return [
+            'upload' => [
+                'class' => 'kucha\ueditor\UEditorAction',
+            ]
+        ];
+    }
+
 }

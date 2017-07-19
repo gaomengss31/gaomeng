@@ -22,12 +22,6 @@ class Brand extends \yii\db\ActiveRecord
         0=>'隐藏',
         1=>'正常'
     ];
-
-    /*public static $status_options = [
-      -1=>'删除',
-      0=>'隐藏',
-      1=>'正常',
-    ];*/
     //传参数的目的是，add界面不需要显示删除项。
     public static function getStatusOption($shanchu=true){
         $options=[
