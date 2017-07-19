@@ -9,6 +9,7 @@ use yii\web\UploadedFile;
 
 class BrandController extends \yii\web\Controller
 {
+    public $layout = 'brand_mine';
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Ìí¼Óbrand<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actionAdd(){
         $model = new Brand();
