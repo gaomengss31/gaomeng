@@ -1,3 +1,10 @@
+<form action=""  class="btn">
+    <input type="text" name="keywords"/>
+    <?php
+    echo \yii\bootstrap\Html::submitButton('提交',['class'=>'btn btn-info']);
+    ?>
+</form>
+
 <table class="table table-bordered table-condensed">
     <tr>
         <th>ID</th>
@@ -6,7 +13,6 @@
         <th>分类ID</th>
         <th>排序</th>
         <th>文章状态</th>
-
         <th>创建时间</th>
         <th>操作</th>
     </tr>

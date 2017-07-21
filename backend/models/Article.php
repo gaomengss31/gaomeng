@@ -20,9 +20,7 @@ class Article extends \yii\db\ActiveRecord
     public function getarticlecategory(){
         return $this->hasOne(ArticleCategory::className(),['id'=>'article_category_id']);
     }
-    public function getarticletatail(){
-        return $this->hasOne(ArticleCategory::className(),['id'=>'article_category_id']);
-    }
+
     public static $status_options = [
         -1=>'删除',
         0=>'隐藏',
@@ -45,6 +43,7 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             [['intro'], 'string'],
+            [['article_category_id', 'sort', 'status', 'create_time','name'], 'required'],
             [['article_category_id', 'sort', 'status', 'create_time'], 'integer'],
             [['name'], 'string', 'max' => 50],
         ];

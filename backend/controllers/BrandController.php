@@ -12,36 +12,36 @@ use flyok666\qiniu\Qiniu;
 class BrandController extends \yii\web\Controller
 {
     public $layout = 'brand_mine';
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>添加brand<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>锟斤拷锟絙rand<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actionAdd(){
         $model = new Brand();
         $request = new Request();
-        //判断传值方式
+        //锟叫断达拷值锟斤拷式
         if($request->isPost){
-            //如果是post方式提交，就开始加载数据
+            //锟斤拷锟斤拷锟絧ost锟斤拷式锟结交锟斤拷锟酵匡拷始锟斤拷锟斤拷锟斤拷锟斤拷
             $model->load($request->post());
-            //实例化文件
-            //开始验证数据
+            //实锟斤拷锟斤拷锟侥硷拷
+            //锟斤拷始锟斤拷证锟斤拷锟斤拷
 
 
             if($model->validate()){
-                      $model->save();//由于默认情况下，保存操作是会调用validate方法，有验证码的时候，需要关闭验证，所以用false
-                      //跳转
+                      $model->save();//锟斤拷锟斤拷默锟斤拷锟斤拷锟斤拷拢锟斤拷锟斤拷锟斤拷锟斤拷锟角伙拷锟斤拷锟絭alidate锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷证锟斤拷锟绞憋拷锟斤拷锟揭拷乇锟斤拷锟街わ拷锟斤拷锟斤拷锟斤拷锟絝alse
+                      //锟斤拷转
                       return $this->redirect(['index']);
                   }else{
-                      //验证失败 打印错误信息
+                      //锟斤拷证失锟斤拷 锟斤拷印锟斤拷锟斤拷锟斤拷息
                       var_dump($model->getErrors());exit;
                   }
         }
         return $this->render('add',['model'=>$model]);
     }
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>显示主页<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>锟斤拷示锟斤拷页<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actionIndex()
     {
-        //分页 总条数 每页显示条数 当前第几页
+        //锟斤拷页 锟斤拷锟斤拷锟斤拷 每页锟斤拷示锟斤拷锟斤拷 锟斤拷前锟节硷拷页
         $query = Brand::find()->where(['status' => [1,0]])->orderBy('sort DESC');
         //$query = Brand::find()->where(['status' => [1,0]])->orderBy('sort DESC')->all();
-        //总条数
+        //锟斤拷锟斤拷锟斤拷
         $total = $query->count();
         $parPage = 2;
         $pager = new Pagination(
@@ -54,11 +54,11 @@ class BrandController extends \yii\web\Controller
         return $this->render('index',['models'=>$models,'pager'=>$pager]);
 
     }
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>垃圾桶界面<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>锟斤拷锟斤拷桶锟斤拷锟斤拷<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actionIndex2(){
         $query2 = Brand::find()->where(['status' => -1])->orderBy('sort DESC');
         //$query = Brand::find()->where(['status' => [1,0]])->orderBy('sort DESC')->all();
-        //总条数
+        //锟斤拷锟斤拷锟斤拷
         $total = $query2->count();
         $parPage = 5;
         $pager = new Pagination(
@@ -70,32 +70,25 @@ class BrandController extends \yii\web\Controller
         $models2 = $query2->limit($pager->limit)->offset($pager->offset)->all();
         return $this->render('index2',['models2'=>$models2,'pager'=>$pager]);
     }
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>修改功能<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>锟睫改癸拷锟斤拷<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actionEdit($id){
         //$model = new Brand();
         $model = Brand::findOne(['id'=>$id]);
         $request = new Request();
-        //判断传值方式
         if($request->isPost){
-            //如果是post方式提交，就开始加载数据
             $model->load($request->post());
-            //实例化文件
-            //开始验证数据
-
-
             if($model->validate()){
-                $model->save();//由于默认情况下，保存操作是会调用validate方法，有验证码的时候，需要关闭验证，所以用false
-                //跳转
+                $model->save();
                 return $this->redirect(['index']);
             }else{
-                //验证失败 打印错误信息
+
                 var_dump($model->getErrors());exit;
             }
         }
         return $this->render('add',['model'=>$model]);
     }
 
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>删除，将status状态改成-1<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>删锟斤拷锟斤拷锟斤拷status状态锟侥筹拷-1<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actionDel($id){
         $model = Brand::findOne(['id'=>$id]);
         $model->status = -1;
@@ -103,8 +96,8 @@ class BrandController extends \yii\web\Controller
         return $this->redirect('index');
     }
 
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>添加uploadify用于添加图片的插件<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>还需要在视图上加东西<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>锟斤拷锟絬ploadify锟斤拷锟斤拷锟斤拷锟酵计拷牟锟斤拷<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>锟斤拷锟斤拷要锟斤拷锟斤拷图锟较加讹拷锟斤拷<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actions() {
         return [
             's-upload' => [
@@ -147,7 +140,7 @@ class BrandController extends \yii\web\Controller
                     /*$action->getFilename(); // "image/yyyymmddtimerand.jpg"
                     $action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
                     $action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"*/
-                    //将图片上传到七牛云上
+                    //锟斤拷图片锟较达拷锟斤拷锟斤拷牛锟斤拷锟斤拷
                     $qiniu = new Qiniu(\Yii::$app->params['qiniu']);
                     $qiniu->uploadFile(
                         $action->getSavePath(),$action->getWebUrl()
@@ -159,7 +152,7 @@ class BrandController extends \yii\web\Controller
             ],
         ];
     }
-    //测试青牛云
+    //锟斤拷锟斤拷锟斤拷牛锟斤拷
     public function actionQiniu(){
 
         $config = [
@@ -174,9 +167,9 @@ class BrandController extends \yii\web\Controller
 
         $qiniu = new Qiniu($config);
         $key = 'upload/cc/8a/cc8af6aa8ea51370c22352d716f4c4b9ba6177e7.jpg';
-        //上传图片到七牛云
+        //锟较达拷图片锟斤拷锟斤拷牛锟斤拷
         $qiniu->uploadFile(\Yii::getAlias('@webroot'.'/upload/cc/8a/cc8af6aa8ea51370c22352d716f4c4b9ba6177e7.jpg'),$key);
-        //获取七牛云
+        //锟斤拷取锟斤拷牛锟斤拷
         $url = $qiniu->getLink($key);
         var_dump($url);
     }
