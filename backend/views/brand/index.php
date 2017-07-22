@@ -1,3 +1,7 @@
+<p>
+    <?=\yii\bootstrap\Html::a('垃圾桶',['brand/index2'],['class'=>'btn btn-info'])?>
+</p>
+
 <table class="table table-bordered table-condensed">
     <tr>
         <th>ID</th>

@@ -11,11 +11,13 @@ class ArticleController extends \yii\web\Controller
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>分页列表<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actionIndex($keywords='')
     {
-        //$query = Article::find()->where(['status' => [1,0]])->orderBy('sort DESC');
+
+        //这个查询语句，需要把and写在前面
         $query=Article::find()->where(['and','status in (1,0)',"name like '%{$keywords}%'"])->orderBy('sort desc,id desc');
 
+
         $total = $query->count();
-        $parPage = 5;
+        $parPage = 2;
         $pager = new Pagination(
             [
                 'totalCount'=>$total,
@@ -95,5 +97,6 @@ class ArticleController extends \yii\web\Controller
         }
         return $this->render('add',['model'=>$model,'model2'=>$model2]);
     }
-
 }
+
+//$query=Article::find()->where(['and','status in (1,0)',"name like '%{$keywords}%'"])->orderBy('sort desc,id desc');

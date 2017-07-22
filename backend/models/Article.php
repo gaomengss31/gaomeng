@@ -43,7 +43,7 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             [['intro'], 'string'],
-            [['article_category_id', 'sort', 'status', 'create_time','name'], 'required'],
+            [['article_category_id', 'sort', 'status','name'], 'required'],
             [['article_category_id', 'sort', 'status', 'create_time'], 'integer'],
             [['name'], 'string', 'max' => 50],
         ];

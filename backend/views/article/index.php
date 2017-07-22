@@ -1,9 +1,12 @@
 <form action=""  class="btn">
     <input type="text" name="keywords"/>
     <?php
-    echo \yii\bootstrap\Html::submitButton('提交',['class'=>'btn btn-info']);
+    echo \yii\bootstrap\Html::submitButton('搜索',['class'=>'btn btn-info']);
     ?>
 </form>
+<p>
+    <?=\yii\bootstrap\Html::a('垃圾桶',['article/index2'],['class'=>'btn btn-info'])?>
+</p>
 
 <table class="table table-bordered table-condensed">
     <tr>
