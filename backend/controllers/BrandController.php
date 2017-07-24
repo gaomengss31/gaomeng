@@ -16,32 +16,26 @@ class BrandController extends \yii\web\Controller
     public function actionAdd(){
         $model = new Brand();
         $request = new Request();
-        //�жϴ�ֵ��ʽ
+
         if($request->isPost){
-            //�����post��ʽ�ύ���Ϳ�ʼ��������
             $model->load($request->post());
-            //ʵ�����ļ�
-            //��ʼ��֤����
-
-
             if($model->validate()){
-                      $model->save();//����Ĭ������£���������ǻ����validate����������֤���ʱ����Ҫ�ر���֤��������false
-                      //��ת
+                      $model->save();
+
                       return $this->redirect(['index']);
                   }else{
-                      //��֤ʧ�� ��ӡ������Ϣ
                       var_dump($model->getErrors());exit;
                   }
         }
         return $this->render('add',['model'=>$model]);
     }
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>��ʾ��ҳ<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actionIndex()
     {
-        //��ҳ ������ ÿҳ��ʾ���� ��ǰ�ڼ�ҳ
+
         $query = Brand::find()->where(['status' => [1,0]])->orderBy('sort DESC');
         //$query = Brand::find()->where(['status' => [1,0]])->orderBy('sort DESC')->all();
-        //������
+
         $total = $query->count();
         $parPage = 2;
         $pager = new Pagination(
@@ -54,11 +48,11 @@ class BrandController extends \yii\web\Controller
         return $this->render('index',['models'=>$models,'pager'=>$pager]);
 
     }
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>����Ͱ����<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actionIndex2(){
         $query2 = Brand::find()->where(['status' => -1])->orderBy('sort DESC');
         //$query = Brand::find()->where(['status' => [1,0]])->orderBy('sort DESC')->all();
-        //������
+
         $total = $query2->count();
         $parPage = 5;
         $pager = new Pagination(
@@ -70,7 +64,7 @@ class BrandController extends \yii\web\Controller
         $models2 = $query2->limit($pager->limit)->offset($pager->offset)->all();
         return $this->render('index2',['models2'=>$models2,'pager'=>$pager]);
     }
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>�޸Ĺ���<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actionEdit($id){
         //$model = new Brand();
         $model = Brand::findOne(['id'=>$id]);
@@ -88,7 +82,7 @@ class BrandController extends \yii\web\Controller
         return $this->render('add',['model'=>$model]);
     }
 
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ɾ������status״̬�ĳ�-1<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actionDel($id){
         $model = Brand::findOne(['id'=>$id]);
         $model->status = -1;
@@ -96,8 +90,8 @@ class BrandController extends \yii\web\Controller
         return $this->redirect('index');
     }
 
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>���uploadify�������ͼƬ�Ĳ��<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>����Ҫ����ͼ�ϼӶ���<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actions() {
         return [
             's-upload' => [
@@ -152,7 +146,7 @@ class BrandController extends \yii\web\Controller
             ],
         ];
     }
-    //������ţ��
+//测试七牛云，这个地方必须要有，验证key的地方
     public function actionQiniu(){
 
         $config = [
@@ -162,14 +156,10 @@ class BrandController extends \yii\web\Controller
             'bucket'=>'yiishop',
             'area'=>Qiniu::AREA_HUADONG
         ];
-
-
-
         $qiniu = new Qiniu($config);
         $key = 'upload/cc/8a/cc8af6aa8ea51370c22352d716f4c4b9ba6177e7.jpg';
-        //�ϴ�ͼƬ����ţ��
+
         $qiniu->uploadFile(\Yii::getAlias('@webroot'.'/upload/cc/8a/cc8af6aa8ea51370c22352d716f4c4b9ba6177e7.jpg'),$key);
-        //��ȡ��ţ��
         $url = $qiniu->getLink($key);
         var_dump($url);
     }

@@ -78,9 +78,4 @@ class GoodsCategory extends \yii\db\ActiveRecord
     {
         return new GoodsCategoryQuery(get_called_class());
     }
-
-    //测试嵌套集合的用法
-
-
-
 }

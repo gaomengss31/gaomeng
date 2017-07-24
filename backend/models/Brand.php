@@ -62,4 +62,5 @@ class Brand extends \yii\db\ActiveRecord
             'status' => '状态',
         ];
     }
+
 }
