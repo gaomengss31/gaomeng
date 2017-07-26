@@ -25,7 +25,6 @@ class GoodsController extends \yii\web\Controller
         exit;*/
         if($model->name){
             $query->andWhere(['like','name',$model->name]);
-
         }
         if($model->maxPrice){
             $query->andWhere(['<=','market_price',$model->maxPrice]);

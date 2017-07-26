@@ -1,7 +1,7 @@
 <?php
 $form = \yii\bootstrap\ActiveForm::begin(['layout' => 'inline','method'=>'get']);
 echo $form->field($model,'name')->textInput(['placeholder'=>'标题']) ;
-//echo $form->field($search,'brand_id')->dropDownList(\backend\models\Goods::getBrandOptions());
+//echo $form->field($model,'$model->brand->name')->dropDownList(\backend\models\Goods::getBrandOptions(),['promppt'=>'请输入品牌']);
 echo $form->field($model,'maxPrice')->textInput(['placeholder'=>'价格上限']);
 echo $form->field($model,'minPrice')->textInput(['placeholder'=>'价格下限']);
 echo \yii\bootstrap\Html::submitButton('搜索',['class'=>'btn btn-default btn-success']);
@@ -34,6 +34,7 @@ echo \yii\bootstrap\Html::submitButton('搜索',['class'=>'btn btn-default btn-s
             <td><?=date("Y-m-d H:i:s",$model->create_time)?></td>
             <td><?=$model->market_price?></td>
             <td>
+                <?=\yii\bootstrap\Html::a('<span class="glyphicon glyphicon-picture"></span>相册',['gallery','id'=>$model->id],['class'=>'btn btn-default'])?>
                 <?=\yii\bootstrap\Html::a('修改',['goods/edit','id'=>$model->id],['class'=>'btn btn-sm btn-success'])?>||
                 <?=\yii\bootstrap\Html::a('删除',['goods/delete','id'=>$model->id],['class'=>'btn btn-sm btn-danger'])?>||
                 <?=\yii\bootstrap\Html::a('查看',['goods/view','id'=>$model->id],['class'=>'btn btn-sm btn-success'])?>
