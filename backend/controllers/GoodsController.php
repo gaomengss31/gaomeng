@@ -223,6 +223,18 @@ class GoodsController extends \yii\web\Controller
         $url = $qiniu->getLink($key);
         var_dump($url);
     }
+    //相册
+    public function actionGallery($id)
+    {
+        $goods = Goods::findOne(['id'=>$id]);
+        if($goods == null){
+            throw new NotFoundHttpException('商品不存在');
+        }
+
+
+        return $this->render('gallery',['goods'=>$goods]);
+
+    }
 
 
 }

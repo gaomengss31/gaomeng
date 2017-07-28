@@ -33,6 +33,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public $old_pass;
     public $new_pass;
     public $password2;
+    public $roles=[];
     //定义场景
     const SCENARIO_EDIT = 'edit';
     const SCENARIO_ADD = 'add';

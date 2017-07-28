@@ -58,17 +58,28 @@ class UserController extends \yii\web\Controller
         $model = new User();
         $request = new Request();
 
+
         if($request->isPost){
             $model->load($request->post());
-            //var_dump($model);
-            //exit;
             if($model->validate()){
                 $model->password_hash =\Yii::$app->security->generatePasswordHash($model->password);
                 $model->status=10;
                 $model->created_at = time();
                 //将auth_key，由于要保存到数据库，所以随机生成一个字段，加这个目的是为了自动登录
                 $model->auth_key = \Yii::$app->security->generateRandomString();
-                $model->save(false);
+                $model->save();
+                //开始添加用户角色
+                $authManager = \Yii::$app->authManager;
+                if(is_array($model->roles)){
+                    foreach ($model->roles as $role){
+                        $roles =$authManager->getRoles($role);
+                        if($roles){
+                            $authManager->assign($role,$model->id);
+                        }
+                    }
+                    \Yii::$app->session->setFlash('success','用户角色添加成功');
+                    return $this->redirect(['user-index']);
+                }
                 return $this->redirect(['user/index']);
             }
         }else{
