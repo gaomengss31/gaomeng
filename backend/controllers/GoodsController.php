@@ -12,6 +12,8 @@ use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use yii\data\Pagination;
 use yii\web\Request;
 use yii\db\Exception;
+use yii\web\NotFoundHttpException;
+use backend\models\GoodsGallery;
 
 class GoodsController extends \yii\web\Controller
 {
@@ -84,7 +86,8 @@ class GoodsController extends \yii\web\Controller
 
                 $model2->goods_id = $model->id;
                 $model2->save();
-                return $this->redirect(['goods/index']);
+                \Yii::$app->session->setFlash('success','商品添加成功,请添加商品相册');
+                return $this->redirect(['goods/gallery','id'=>$model->id]);
             } else {
                 //验证失败 打印错误信息
                 var_dump($model->getErrors());
@@ -228,13 +231,10 @@ class GoodsController extends \yii\web\Controller
     {
         $goods = Goods::findOne(['id'=>$id]);
         if($goods == null){
-            throw new NotFoundHttpException('商品不存在');
+            throw new NotFoundHttpException('找不到这个商品');
         }
-
-
         return $this->render('gallery',['goods'=>$goods]);
-
     }
-
-
 }
+
+

@@ -3,6 +3,7 @@
 namespace backend\controllers;
 //use backend\models\Admin;
 use backend\models\LoginForm2;
+use backend\models\Menu;
 use backend\models\User;
 use yii\web\Request;
 
@@ -70,15 +71,16 @@ class UserController extends \yii\web\Controller
                 $model->save();
                 //开始添加用户角色
                 $authManager = \Yii::$app->authManager;
+                //$authManager->revokeAll($model->id);
                 if(is_array($model->roles)){
-                    foreach ($model->roles as $role){
-                        $roles =$authManager->getRoles($role);
-                        if($roles){
-                            $authManager->assign($role,$model->id);
+                    foreach ($model->roles as $roleName){
+                        $role =$authManager->getRole($roleName);
+                        if($role){
+                            if($role) $authManager->assign($role,$model->id);
                         }
                     }
                     \Yii::$app->session->setFlash('success','用户角色添加成功');
-                    return $this->redirect(['user-index']);
+                    return $this->redirect(['index']);
                 }
                 return $this->redirect(['user/index']);
             }
@@ -168,6 +170,15 @@ class UserController extends \yii\web\Controller
         }
 
         return $this->render('edit',['model'=>$model]);
+    }
+
+    ////////////////////////////删除\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    public function actionDelete($id){
+
+        $model = User::findOne(['id'=>$id]);
+
+        $del = User::findOne($id)->delete();
+        return  $this->redirect('index');
     }
 
 }

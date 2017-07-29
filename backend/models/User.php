@@ -29,11 +29,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     //add的
     public $password;
-    //edit
     public $old_pass;
     public $new_pass;
     public $password2;
-    public $roles=[];
+    public $roles;
     //定义场景
     const SCENARIO_EDIT = 'edit';
     const SCENARIO_ADD = 'add';
@@ -50,14 +49,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['username', 'email'], 'required','on'=>self::SCENARIO_ADD],
-            [['last_login_ip', 'last_login_time','email'],'safe'],
+            [['last_login_ip', 'last_login_time','email'],'safe','on'=>self::SCENARIO_ADD],
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['last_login_time'], 'safe'],
-            [['username', 'password', 'password_reset_token', 'email', 'last_login_ip'], 'string', 'max' => 255],
+            [['username', 'password', 'password_reset_token', 'email', 'last_login_ip'], 'string', 'max' => 255,'on'=>self::SCENARIO_ADD],
             [['auth_key'], 'string', 'max' => 32],
             [['username'], 'unique'],
             [['password_reset_token'], 'unique'],
             [['old_pass','new_pass','password2'],'required','on'=>self::SCENARIO_EDIT],
+            [['roles'],'safe'],
 
 
 
@@ -75,7 +75,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'auth_key' => 'Auth Key',
             'password' => 'Password',
             'password_reset_token' => 'Password Reset Token',
-            'email' => 'Email',
+            'email' => 'email',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

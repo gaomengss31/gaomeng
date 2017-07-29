@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "goods_gallery".
  *
  * @property integer $id
- * @property integer $goods_id
+ * @property string $goods_id
  * @property string $path
  */
 class GoodsGallery extends \yii\db\ActiveRecord
@@ -27,8 +27,8 @@ class GoodsGallery extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-
-            [['id','goods_id'], 'integer'],
+            [['goods_id'], 'integer'],
+            [['path'], 'required'],
             [['path'], 'string', 'max' => 255],
         ];
     }
@@ -43,5 +43,11 @@ class GoodsGallery extends \yii\db\ActiveRecord
             'goods_id' => '商品id',
             'path' => '图片地址',
         ];
+    }
+
+    //删除数据同时删除图片
+    public function afterDelete()
+    {
+        unlink(Yii::getAlias('@webroot').$this->path);
     }
 }

@@ -5,6 +5,7 @@ namespace backend\models;
 use creocoder\nestedsets\NestedSetsBehavior;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\bootstrap\Html;
 
 /**
  * This is the model class for table "goods".
@@ -30,6 +31,22 @@ class Goods extends \yii\db\ActiveRecord
     public function getGoodsIntro(){
         return $this->hasOne(GoodsIntro::className(),['goods_id'=>'id']);
     }
+
+    //获取商品相册的一对多关系
+    public function getGalleries()
+    {
+        return $this->hasMany(GoodsGallery::className(),['goods_id'=>'id']);
+    }
+    //获取图片轮播数据
+    public function getPics()
+    {
+        $images = [];
+        foreach ($this->galleries as $img){
+            $images[] = Html::img($img->path);
+        }
+        return $images;
+    }
+
     //获取文章分类表的一些数据
     public function getBrand(){
         return $this->hasOne(Brand::className(),['id'=>'brand_id']);

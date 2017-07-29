@@ -34,9 +34,23 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
+    //先放一个空的数组在里头
+    $menuItems=[];
+    //开始取出1级菜单
+    $menus= \backend\models\Menu::findAll(['parent_id'=>0]);
+    //取出以后开始遍历
+    foreach ($menus as $menu){
+        //生成一级菜单
+        $items = [];
+        foreach ($menu->children as $child){
+            $items[] = ['label' => $child->name, 'url' => [$child->url]];
+        }
+        //确定2级菜单的东西
+        $menuItems[] = ['label'=>$menu->name,'items'=>$items];
+    }
+    /*$menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-    ];
+    ];*/
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {

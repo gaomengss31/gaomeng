@@ -5,20 +5,19 @@ namespace backend\models;
 use Yii;
 
 /**
- * This is the model class for table "goods_gallery".
+ * This is the model class for table "goods_intro".
  *
- * @property integer $id
- * @property string $goods_id
- * @property string $path
+ * @property integer $goods_id
+ * @property string $content
  */
-class GoodsGallery extends \yii\db\ActiveRecord
+class GoodsIntro extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'goods_gallery';
+        return 'goods_intro';
     }
 
     /**
@@ -27,9 +26,8 @@ class GoodsGallery extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['goods_id'], 'integer'],
-            [['path'], 'required'],
-            [['path'], 'string', 'max' => 255],
+            //[['goods_id'], 'integer'],
+            [['content'], 'string'],
         ];
     }
 
@@ -39,15 +37,8 @@ class GoodsGallery extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'goods_id' => '商品id',
-            'path' => '图片地址',
+            'goods_id' => 'Goods ID',
+            'content' => '商品描述',
         ];
-    }
-
-    //删除数据同时删除图片
-    public function afterDelete()
-    {
-        unlink(Yii::getAlias('@webroot').$this->path);
     }
 }

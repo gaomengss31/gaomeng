@@ -11,7 +11,6 @@ use flyok666\qiniu\Qiniu;
 
 class BrandController extends \yii\web\Controller
 {
-    public $layout = 'brand_mine';
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>���brand<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     public function actionAdd(){
         $model = new Brand();
