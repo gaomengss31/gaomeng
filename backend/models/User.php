@@ -48,19 +48,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'email'], 'required','on'=>self::SCENARIO_ADD],
-            [['last_login_ip', 'last_login_time','email'],'safe','on'=>self::SCENARIO_ADD],
+            [['username','email'], 'required','on'=>self::SCENARIO_ADD],
+            [['last_login_ip', 'last_login_time','email','password'],'safe','on'=>self::SCENARIO_ADD],
             [['status', 'created_at', 'updated_at'], 'integer'],
-            [['last_login_time'], 'safe'],
-            [['username', 'password', 'password_reset_token', 'email', 'last_login_ip'], 'string', 'max' => 255,'on'=>self::SCENARIO_ADD],
-            [['auth_key'], 'string', 'max' => 32],
+            [['last_login_time','auth_key'], 'safe'],
+            [['username', 'password_reset_token', 'last_login_ip'], 'string', 'max' => 255,'on'=>self::SCENARIO_ADD],
             [['username'], 'unique'],
             [['password_reset_token'], 'unique'],
             [['old_pass','new_pass','password2'],'required','on'=>self::SCENARIO_EDIT],
             [['roles'],'safe'],
-
-
-
+            ['email', 'email'],
         ];
     }
 

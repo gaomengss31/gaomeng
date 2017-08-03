@@ -1,10 +1,11 @@
 <?php
 
 namespace backend\controllers;
-//use backend\models\Admin;
+use backend\models\Admin;
 use backend\models\LoginForm2;
 use backend\models\Menu;
 use backend\models\User;
+use yii\web\NotFoundHttpException;
 use yii\web\Request;
 
 
@@ -17,16 +18,15 @@ class UserController extends \yii\web\Controller
     $request = new Request();
     if($request->isPost){
         $model->load($request->post());
-        $model->validate();
-
-        if($model->login()){
-           //如果成功
+        if($model->validate() && $model->login()){
+            //登录成功
             \Yii::$app->session->setFlash('success','登录成功');
             return $this->redirect(['user/index']);
         }
     }
 
     return $this->render('login',['model'=>$model]);
+
 
 }
     public function actionIndex()
@@ -57,18 +57,20 @@ class UserController extends \yii\web\Controller
     public function actionAdd()
     {
         $model = new User();
-        $request = new Request();
-
-
-        if($request->isPost){
-            $model->load($request->post());
-            if($model->validate()){
+        $model->scenario=User::SCENARIO_ADD;
+        $model->load(\Yii::$app->request->post());
+        //var_dump(\Yii::$app->request->post());
+        //var_dump($model->password);
+        //exit;
+        //表单的密码没有传过来
+        if($model->load(\Yii::$app->request->post()) && $model->validate()){
                 $model->password_hash =\Yii::$app->security->generatePasswordHash($model->password);
                 $model->status=10;
                 $model->created_at = time();
                 //将auth_key，由于要保存到数据库，所以随机生成一个字段，加这个目的是为了自动登录
                 $model->auth_key = \Yii::$app->security->generateRandomString();
                 $model->save();
+
                 //开始添加用户角色
                 $authManager = \Yii::$app->authManager;
                 //$authManager->revokeAll($model->id);
@@ -83,7 +85,8 @@ class UserController extends \yii\web\Controller
                     return $this->redirect(['index']);
                 }
                 return $this->redirect(['user/index']);
-            }
+
+
         }else{
             //var_dump($model->getErrors());EXIT;
         }

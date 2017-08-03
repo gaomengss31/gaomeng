@@ -43,10 +43,19 @@ AppAsset::register($this);
         //生成一级菜单
         $items = [];
         foreach ($menu->children as $child){
-            $items[] = ['label' => $child->name, 'url' => [$child->url]];
+            //判断当前用户是否有子菜单
+            //if(Yii::$app->user->can($child->url)){
+                $items[] = ['label' => $child->name, 'url' => [$child->url]];
+            //}
+
         }
+        //无子菜单的时候，不显示1级菜单
+        //if(!empty($items)){
+            $menuItems[] = ['label'=>$menu->name,'items'=>$items];
+        //}
+        //
         //确定2级菜单的东西
-        $menuItems[] = ['label'=>$menu->name,'items'=>$items];
+
     }
     /*$menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],

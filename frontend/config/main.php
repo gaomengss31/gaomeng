@@ -9,6 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
+    'language'=>'zh-CN',
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
@@ -16,7 +17,8 @@ return [
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            //'identityClass' => 'common\models\User',
+            'identityClass' => \frontend\models\Member::className(),
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
@@ -43,6 +45,13 @@ return [
             'rules' => [
             ],
         ],
+        'sms'=>[
+            'class'=>\frontend\components\AliyunSms::className(),
+            'accessKeyId'=>'LTAIkOsMmt1om2TK',
+            'accessKeySecret'=>'TPFdCP9f7T48imAkZ6R274ZaRxoMPq',
+            'signName'=>'高萌的小屋',
+            'templateCode'=>'SMS_80060054'
+        ]
 
     ],
     'params' => $params,
